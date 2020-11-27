@@ -1,0 +1,32 @@
+{
+  "name": "new-project",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "rm -rf dist/* && parcel build src/index.html --public-url '.' ",
+    "sync": "rsync -r -a -v -e ssh --delete dist/ matinel2@matinic.us:/home/matinel2/public_html/story-circle"
+  },
+  "dependencies": {
+    "bulma": "^0.9.0",
+    "faunadb": "^3.0.1",
+    "human-readable-ids": "^1.0.4",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@vue/component-compiler-utils": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.27.0",
+    "stylus": "^0.54.8",
+    "typescript": "^3.9.7",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
