@@ -3,8 +3,8 @@
 <section class="pt-3">
   <div class="container is-fluid">
 
-  <div class="mode-header mb-3"><button class="button is-small is-primary mr-2" @click="$emit('resetToInitial')">⤴ Back</button> Join a Game</div>
-      
+  <div v-if="status != 'gameCompleted'">
+  <h1 class="title is-3">Join game</h1>      
         <div class="notification is-warning" v-if="error.inError">
     {{ error.message }}
   </div>
@@ -28,7 +28,8 @@
       </div>
 
       <div v-if="status === 'choosePlayer'">
-        <h4 class="title is-4">Game code <strong>{{ gameData.identifier }}</strong></h4>
+
+        <h4 class="title is-4"><strong>{{ gameData.identifier }}</strong></h4>
           <div class="field is-horizontal" v-if="status === 'choosePlayer'">
             <div class="field-label is-normal">
               <label class="label">What player are you?</label>
@@ -52,8 +53,23 @@
               </div>
             </div>
           </div>
-      </div>
+        </div>
   </div>
+
+    <div v-if="status === 'gameCompleted'">
+    <h4 class="title is-4"><strong>{{ gameData.identifier }}</strong></h4>
+    <h2 class="title is-3">Completed game</h2>
+
+    <div v-for="[k,v] in Object.entries(gameData.stories)" class="my-3">
+      <h4 class="title is-4">Story {{parseInt(k) + 1}}</h4>
+      <p v-for="line in v">{{line}}</p>
+    </div>
+  </div>
+
+  </div>
+
+
+ 
 </section>
 </template>
 
@@ -86,6 +102,7 @@ var client = new faunadb.Client({ secret: 'fnAD4dsbeZACBrX3LE8aTjpoBmxbnhDMaBrkY
     },
 
     computed: {
+      
     },
 
     methods: {
@@ -108,7 +125,16 @@ var client = new faunadb.Client({ secret: 'fnAD4dsbeZACBrX3LE8aTjpoBmxbnhDMaBrkY
             this.clearError();
             this.gameData = r.data;
             this.gameRef = r.ref.value.id;
-            this.status = "choosePlayer";
+            const rounds = this.gameData.rounds;
+            var t = true;
+            for(const [k,v] of Object.entries(this.gameData.stories)) {
+            if(v.length < rounds){ t = false }
+            }
+
+            if(t) {
+            this.status = "gameCompleted";
+            } else { this.status ="choosePlayer" }
+            
           } )
           .catch(() => { this.status = "initial"; this.error.inError = true; this.error.message="Game code not found, please try again." } );
         

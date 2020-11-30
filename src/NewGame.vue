@@ -3,13 +3,11 @@
 
 <section class="pt-5">
   <div class="container is-fluid" v-if="status != 'creation-successful'">
-
-    <div class="mode-header mb-3"><button class="button is-small is-primary mr-2" @click="$emit('resetToInitial')">⤴ Back</button> Start a New Game</div>
-    
+    <h1 class="title is-3">New game</h1>
     <h4 class="title is-4">Players</h4>
     <div class="field has-addons" v-for="(player,index) in playersEntered">
       <p class="control">
-          <input class="input" type="text" v-model="playersEntered[index]"></input>
+          <input class="input" type="text" placeholder="Player name" v-model="playersEntered[index]"></input>
       </p>
       <p class="control">
         <a class="button is-primary" @click="removePlayer(index)">ⓧ</a>
@@ -62,7 +60,7 @@ var client = new faunadb.Client({ secret: 'fnAD4dsbeZACBrX3LE8aTjpoBmxbnhDMaBrkY
     data: function() {
       return {
         status: 'initial',
-        playersEntered: ['Player 1','Player 2'],
+        playersEntered: ['',''],
         numberRounds: 8,
         successfulGameCode: '',
         randomize: 'randomize'
@@ -74,7 +72,7 @@ var client = new faunadb.Client({ secret: 'fnAD4dsbeZACBrX3LE8aTjpoBmxbnhDMaBrkY
 
     methods: {
       addPlayer: function() {
-        this.playersEntered.push('New Player')
+        this.playersEntered.push('')
       },
 
       removePlayer: function(i) {

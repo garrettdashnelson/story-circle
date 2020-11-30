@@ -4,8 +4,7 @@
 <section>
   <div class="container is-fluid pt-5">
 
-    <div class="mode-header mb-3"><button class="button is-small is-primary mr-2" @click="$emit('resetToInitial')">⤴ Back</button><strong>{{$parent.gameData.identifier}}</strong> → <strong>{{$parent.chosenPlayer}}</strong></div>
-
+  <div class="code-and-player"><strong>{{$parent.gameData.identifier}}</strong> → <strong>{{$parent.chosenPlayer}}</strong></div>
 
  <div v-if="!roundsCompleted" class="my-4">
         <h4 class="title is-5">
