@@ -147,7 +147,7 @@ body
 
   #main-area
     flex-grow: 1
-    overflow: scroll
+    overflow: auto
 
 
 .instructions
