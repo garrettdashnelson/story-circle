@@ -20,7 +20,7 @@
   </div>
   <div class="field mt-3">
     <div class="control">
-    <button class="button is-primary is-large" @click="submitEntry" :disabled="waitForLastPlayer || freezeSubmit">📯 Submit</button>
+    <button class="button is-primary is-large" @click="submitEntry" :disabled="waitForLastPlayer || freezeSubmit || enteredText.length < 2">📯 Submit</button>
     </div>
   </div>
 </div>
